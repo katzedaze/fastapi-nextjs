@@ -1,85 +1,94 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { orderApi } from '@/services/api'
-import { Order, OrderStatus, OrderUpdate } from '@/types/order'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { orderApi } from "@/services/api";
+import { Order, OrderStatus, OrderUpdate } from "@/types/order";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface EditOrderPageProps {
   params: {
-    id: string
-  }
+    id: string;
+  };
 }
 
 export default function EditOrderPage({ params }: EditOrderPageProps) {
-  const router = useRouter()
-  const orderId = params.id
-  const [order, setOrder] = useState<Order | null>(null)
-  const [formData, setFormData] = useState<OrderUpdate>({})
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const router = useRouter();
+  const orderId = params.id;
+  const [order, setOrder] = useState<Order | null>(null);
+  const [formData, setFormData] = useState<OrderUpdate>({});
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // 注文ステータスのオプション
   const statusOptions = [
-    { value: OrderStatus.PENDING, label: '処理待ち' },
-    { value: OrderStatus.PROCESSING, label: '処理中' },
-    { value: OrderStatus.SHIPPED, label: '発送済み' },
-    { value: OrderStatus.DELIVERED, label: '配達完了' },
-    { value: OrderStatus.CANCELLED, label: 'キャンセル' },
-  ]
+    { value: OrderStatus.PENDING, label: "処理待ち" },
+    { value: OrderStatus.PROCESSING, label: "処理中" },
+    { value: OrderStatus.SHIPPED, label: "発送済み" },
+    { value: OrderStatus.DELIVERED, label: "配達完了" },
+    { value: OrderStatus.CANCELLED, label: "キャンセル" },
+  ];
 
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        setLoading(true)
-        const data = await orderApi.getOrder(orderId)
-        setOrder(data)
+        setLoading(true);
+        const data = await orderApi.getOrder(orderId);
+        setOrder(data);
         setFormData({
           status: data.status,
           shipping_address: data.shipping_address,
           notes: data.notes,
-        })
-        setError(null)
+        });
+        setError(null);
       } catch (err) {
-        console.error('Error fetching order:', err)
-        setError('Failed to load order. Please try again later.')
+        console.error("Error fetching order:", err);
+        setError("Failed to load order. Please try again later.");
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchOrder()
-  }, [orderId])
+    fetchOrder();
+  }, [orderId]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSaving(true)
-    setError(null)
+    e.preventDefault();
+    setSaving(true);
+    setError(null);
 
     try {
-      await orderApi.updateOrder(orderId, formData)
-      router.push(`/orders/${orderId}`)
+      await orderApi.updateOrder(orderId, formData);
+      router.push(`/orders/${orderId}`);
     } catch (err: any) {
-      console.error('Error updating order:', err)
-      setError(err.response?.data?.detail || 'Failed to update order. Please try again.')
+      console.error("Error updating order:", err);
+      setError(
+        err.response?.data?.detail ||
+          "Failed to update order. Please try again."
+      );
     } finally {
-      setSaving(false)
+      setSaving(false);
     }
-  }
+  };
 
-  if (loading) return <div className="container mx-auto p-6">Loading order...</div>
-  if (error && !order) return <div className="container mx-auto p-6 text-red-500">{error}</div>
-  if (!order) return <div className="container mx-auto p-6">Order not found</div>
+  if (loading)
+    return <div className="container mx-auto p-6">Loading order...</div>;
+  if (error && !order)
+    return <div className="container mx-auto p-6 text-red-500">{error}</div>;
+  if (!order)
+    return <div className="container mx-auto p-6">Order not found</div>;
 
   return (
     <div className="container mx-auto p-6 max-w-2xl">
@@ -101,7 +110,7 @@ export default function EditOrderPage({ params }: EditOrderPageProps) {
             onChange={handleChange}
             className="w-full p-2 border rounded-md"
           >
-            {statusOptions.map(option => (
+            {statusOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
@@ -114,7 +123,7 @@ export default function EditOrderPage({ params }: EditOrderPageProps) {
           <textarea
             id="shipping_address"
             name="shipping_address"
-            value={formData.shipping_address || ''}
+            value={formData.shipping_address || ""}
             onChange={handleChange}
             className="w-full min-h-[100px] p-2 border rounded-md"
           />
@@ -125,7 +134,7 @@ export default function EditOrderPage({ params }: EditOrderPageProps) {
           <textarea
             id="notes"
             name="notes"
-            value={formData.notes || ''}
+            value={formData.notes || ""}
             onChange={handleChange}
             className="w-full min-h-[100px] p-2 border rounded-md"
           />
@@ -133,13 +142,15 @@ export default function EditOrderPage({ params }: EditOrderPageProps) {
 
         <div className="flex justify-between pt-4">
           <Link href={`/orders/${orderId}`}>
-            <Button type="button" variant="outline">キャンセル</Button>
+            <Button type="button" variant="outline">
+              キャンセル
+            </Button>
           </Link>
           <Button type="submit" disabled={saving}>
-            {saving ? '保存中...' : '保存する'}
+            {saving ? "保存中..." : "保存する"}
           </Button>
         </div>
       </form>
     </div>
-  )
+  );
 }

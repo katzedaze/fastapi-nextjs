@@ -7,7 +7,7 @@ from sqlalchemy.orm import DeclarativeBase
 class Base(DeclarativeBase):
     id: Any
     __name__: str
-    
+
     # Generate __tablename__ automatically
     @declared_attr
     def __tablename__(cls) -> str:

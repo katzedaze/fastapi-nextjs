@@ -31,7 +31,8 @@ async def run_seeder(seeder_name: str) -> None:
             logger.info(f"Running {seeder_name} seeder...")
             seeder = Seeder(db)
             await seeder.run()
-            logger.info(f"{seeder_name.capitalize()} seeder completed successfully")
+            logger.info(
+                f"{seeder_name.capitalize()} seeder completed successfully")
     except Exception as e:
         logger.error(f"Error running {seeder_name} seeder: {e}")
         sys.exit(1)
@@ -41,6 +42,6 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         logger.error("Usage: python run_seeder.py [user|item|order]")
         sys.exit(1)
-    
+
     seeder_name = sys.argv[1].lower()
     asyncio.run(run_seeder(seeder_name))

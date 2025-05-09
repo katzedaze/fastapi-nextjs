@@ -1,14 +1,15 @@
-import axios from 'axios';
-import { User, UserCreate, UserUpdate } from '@/types/user';
-import { Item, ItemCreate, ItemUpdate } from '@/types/item';
-import { Order, OrderCreate, OrderUpdate } from '@/types/order';
+import { Item, ItemCreate, ItemUpdate } from "@/types/item";
+import { Order, OrderCreate, OrderUpdate } from "@/types/order";
+import { User, UserCreate, UserUpdate } from "@/types/user";
+import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
 const api = axios.create({
   baseURL: API_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
@@ -17,7 +18,7 @@ export const userApi = {
    * Get all users
    */
   getUsers: async (): Promise<User[]> => {
-    const response = await api.get<User[]>('/users');
+    const response = await api.get<User[]>("/users");
     return response.data;
   },
 
@@ -33,7 +34,7 @@ export const userApi = {
    * Create a new user
    */
   createUser: async (userData: UserCreate): Promise<User> => {
-    const response = await api.post<User>('/users', userData);
+    const response = await api.post<User>("/users", userData);
     return response.data;
   },
 
@@ -59,7 +60,7 @@ export const itemApi = {
    * Get all items
    */
   getItems: async (): Promise<Item[]> => {
-    const response = await api.get<Item[]>('/items');
+    const response = await api.get<Item[]>("/items");
     return response.data;
   },
 
@@ -75,7 +76,7 @@ export const itemApi = {
    * Create a new item
    */
   createItem: async (itemData: ItemCreate): Promise<Item> => {
-    const response = await api.post<Item>('/items', itemData);
+    const response = await api.post<Item>("/items", itemData);
     return response.data;
   },
 
@@ -101,7 +102,7 @@ export const orderApi = {
    * Get all orders
    */
   getOrders: async (userId?: string): Promise<Order[]> => {
-    const url = userId ? `/orders?user_id=${userId}` : '/orders';
+    const url = userId ? `/orders?user_id=${userId}` : "/orders";
     const response = await api.get<Order[]>(url);
     return response.data;
   },
@@ -118,7 +119,7 @@ export const orderApi = {
    * Create a new order
    */
   createOrder: async (orderData: OrderCreate): Promise<Order> => {
-    const response = await api.post<Order>('/orders', orderData);
+    const response = await api.post<Order>("/orders", orderData);
     return response.data;
   },
 

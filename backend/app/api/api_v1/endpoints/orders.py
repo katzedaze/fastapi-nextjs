@@ -13,9 +13,10 @@ router = APIRouter()
 
 @router.get("", response_model=List[Order])
 async def read_orders(
-    skip: int = 0, 
+    skip: int = 0,
     limit: int = 100,
-    user_id: Optional[UUID] = Query(None, description="Filter orders by user ID"),
+    user_id: Optional[UUID] = Query(
+        None, description="Filter orders by user ID"),
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -30,7 +31,7 @@ async def read_orders(
 
 @router.post("", response_model=Order, status_code=status.HTTP_201_CREATED)
 async def create_order(
-    order_in: OrderCreate, 
+    order_in: OrderCreate,
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -42,7 +43,7 @@ async def create_order(
 
 @router.get("/{order_id}", response_model=Order)
 async def read_order(
-    order_id: UUID, 
+    order_id: UUID,
     db: AsyncSession = Depends(get_db)
 ):
     """

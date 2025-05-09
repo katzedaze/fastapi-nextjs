@@ -35,7 +35,8 @@ async def run_seeders() -> None:
             seeder = seeder_class(db)
             try:
                 await seeder.run()
-                logger.info(f"Seeder {seeder_class.__name__} completed successfully")
+                logger.info(
+                    f"Seeder {seeder_class.__name__} completed successfully")
             except Exception as e:
                 logger.error(f"Error running {seeder_class.__name__}: {e}")
                 raise

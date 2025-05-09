@@ -35,6 +35,7 @@ backend/
 ### Local Setup
 
 1. Install dependencies:
+
    ```bash
    cd backend
    pip install poetry
@@ -42,6 +43,7 @@ backend/
    ```
 
 2. Run the server:
+
    ```bash
    poetry run uvicorn app.main:app --reload
    ```
@@ -49,11 +51,13 @@ backend/
 ### Database Migrations
 
 Create a new migration:
+
 ```bash
 alembic revision --autogenerate -m "description"
 ```
 
 Apply migrations:
+
 ```bash
 alembic upgrade head
 ```
@@ -81,11 +85,13 @@ When using these enums in database operations, always use the enum value (e.g., 
 ### Seed Data
 
 Run the seeder script:
+
 ```bash
 python -m scripts.seed
 ```
 
 To run individual seeders:
+
 ```bash
 python scripts/run_seeder.py [user|item|order]
 ```

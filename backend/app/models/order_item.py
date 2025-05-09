@@ -13,14 +13,18 @@ class OrderItem(Base):
     __tablename__ = "order_items"
 
     # Primary key using composite key
-    order_id = Column(UUID(as_uuid=True), ForeignKey("orders.id"), primary_key=True, nullable=False)
-    item_id = Column(UUID(as_uuid=True), ForeignKey("items.id"), primary_key=True, nullable=False)
+    order_id = Column(UUID(as_uuid=True), ForeignKey(
+        "orders.id"), primary_key=True, nullable=False)
+    item_id = Column(UUID(as_uuid=True), ForeignKey(
+        "items.id"), primary_key=True, nullable=False)
     quantity = Column(Integer, nullable=False, default=1)
     price_at_time = Column(Float, nullable=False)  # 購入時の価格を保存
 
     # Add created_at and updated_at for consistency with other models
-    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
-    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
+    created_at = Column(DateTime(timezone=True),
+                        server_default=func.now(), nullable=False)
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(
+    ), onupdate=func.now(), nullable=False)
 
     # リレーションシップ
     order = relationship("Order", back_populates="order_items")

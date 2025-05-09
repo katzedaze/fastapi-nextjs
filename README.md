@@ -7,7 +7,7 @@ This is a full-stack web application template using FastAPI for the backend, Nex
 ```
 ├── backend                  # FastAPI application
 │   ├── alembic              # Database migrations
-│   ├── app                  
+│   ├── app
 │   │   ├── api              # API endpoints
 │   │   ├── core             # Core functionality
 │   │   ├── db               # Database session and models
@@ -19,7 +19,7 @@ This is a full-stack web application template using FastAPI for the backend, Nex
 │       └── seeders          # Database seeders
 ├── frontend                 # Next.js application
 │   ├── public               # Static files
-│   └── src                  
+│   └── src
 │       ├── app              # Next.js App Router
 │       ├── components       # React components
 │       ├── contexts         # React contexts
@@ -34,6 +34,7 @@ This is a full-stack web application template using FastAPI for the backend, Nex
 ## Technologies Used
 
 ### Backend
+
 - **FastAPI**: Modern, fast web framework for building APIs
 - **Poetry**: Python dependency management
 - **Pydantic**: Data validation and settings management
@@ -43,18 +44,21 @@ This is a full-stack web application template using FastAPI for the backend, Nex
 - **pgvector**: Vector similarity search extension for PostgreSQL
 
 ### Frontend
+
 - **Next.js**: React framework with App Router
 - **TypeScript**: Type-safe JavaScript
 - **Tailwind CSS**: Utility-first CSS framework
 - **shadcn/ui**: Re-usable UI components built with Radix UI and Tailwind CSS
 
 ### Infrastructure
+
 - **Docker**: Containerization
 - **Nginx**: Web server for production environment
 
 ## Getting Started
 
 ### Prerequisites
+
 - Docker and Docker Compose
 - Make (optional, but recommended)
 
@@ -65,28 +69,33 @@ This is a full-stack web application template using FastAPI for the backend, Nex
 This project includes a Makefile to simplify Docker operations.
 
 1. Clone the repository
+
    ```bash
    git clone https://github.com/yourusername/fastapi-nextjs.git
    cd fastapi-nextjs
    ```
 
 2. Set up the environment (creates .env file from example)
+
    ```bash
    make setup
    ```
 
 3. Build and start the development environment
+
    ```bash
    make build
    make up
    ```
 
 4. Run database migrations
+
    ```bash
    make migrate
    ```
 
 5. Seed the database (optional)
+
    ```bash
    make seed
    ```
@@ -94,37 +103,42 @@ This project includes a Makefile to simplify Docker operations.
 #### Using Docker Compose Directly
 
 1. Clone the repository
+
    ```bash
    git clone https://github.com/yourusername/fastapi-nextjs.git
    cd fastapi-nextjs
    ```
 
 2. Create environment files
+
    ```bash
    cp .env.example .env
    cp frontend/.env.local.example frontend/.env.local
    ```
 
 3. Start the development environment
+
    ```bash
    docker-compose -f docker-compose.dev.yml up -d
    ```
 
 4. Run database migrations
+
    ```bash
    docker-compose -f docker-compose.dev.yml exec backend alembic upgrade head
    ```
 
 5. Seed the database (optional)
+
    ```bash
    docker-compose -f docker-compose.dev.yml exec backend python -m scripts.seed
    ```
 
 ### Accessing the Applications
 
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:8000/api/v1
-- API Documentation: http://localhost:8000/docs
+- Frontend: <http://localhost:3000>
+- Backend API: <http://localhost:8000/api/v1>
+- API Documentation: <http://localhost:8000/docs>
 
 ## Development
 
@@ -236,6 +250,7 @@ To deploy the application in production:
 1. Ensure SSL certificates are available in `nginx/ssl/cert.pem` and `nginx/ssl/key.pem`
 
 2. Start the production environment using Make:
+
    ```bash
    make setup ENV=prod
    make up ENV=prod
@@ -244,6 +259,7 @@ To deploy the application in production:
    ```
 
    Or using Docker Compose directly:
+
    ```bash
    docker-compose -f docker-compose.prod.yml up -d
    docker-compose -f docker-compose.prod.yml exec backend alembic upgrade head

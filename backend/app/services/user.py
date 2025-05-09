@@ -61,7 +61,7 @@ class UserService:
     ) -> User:
         """Update a user."""
         update_data = obj_in.dict(exclude_unset=True)
-        
+
         if "password" in update_data:
             hashed_password = get_password_hash(update_data["password"])
             del update_data["password"]

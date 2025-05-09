@@ -1,3 +1,4 @@
+from app.schemas.item import Item as ItemSchema
 from datetime import datetime
 from typing import List, Optional
 from uuid import UUID
@@ -41,7 +42,6 @@ class OrderUpdate(BaseModel):
 
 
 # Import Item schema to use in response
-from app.schemas.item import Item as ItemSchema
 
 
 class OrderItem(OrderItemBase):

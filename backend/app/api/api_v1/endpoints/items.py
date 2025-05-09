@@ -13,8 +13,8 @@ router = APIRouter()
 
 @router.get("", response_model=List[Item])
 async def read_items(
-    skip: int = 0, 
-    limit: int = 100, 
+    skip: int = 0,
+    limit: int = 100,
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -26,7 +26,7 @@ async def read_items(
 
 @router.post("", response_model=Item, status_code=status.HTTP_201_CREATED)
 async def create_item(
-    item_in: ItemCreate, 
+    item_in: ItemCreate,
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -38,7 +38,7 @@ async def create_item(
 
 @router.get("/{item_id}", response_model=Item)
 async def read_item(
-    item_id: UUID, 
+    item_id: UUID,
     db: AsyncSession = Depends(get_db)
 ):
     """

@@ -1,5 +1,5 @@
-import { format, parseISO } from 'date-fns'
-import { formatInTimeZone } from 'date-fns-tz'
+import { parseISO } from "date-fns";
+import { formatInTimeZone } from "date-fns-tz";
 
 /**
  * UTC日時文字列を日本時間に変換してフォーマットする
@@ -9,13 +9,13 @@ import { formatInTimeZone } from 'date-fns-tz'
  */
 export const formatToJST = (
   dateString: string,
-  formatStr: string = 'yyyy/MM/dd HH:mm:ss'
+  formatStr: string = "yyyy/MM/dd HH:mm:ss"
 ): string => {
   try {
-    const date = parseISO(dateString)
-    return formatInTimeZone(date, 'Asia/Tokyo', formatStr)
+    const date = parseISO(dateString);
+    return formatInTimeZone(date, "Asia/Tokyo", formatStr);
   } catch (error) {
-    console.error('Error formatting date to JST:', error)
-    return dateString
+    console.error("Error formatting date to JST:", error);
+    return dateString;
   }
-}
+};

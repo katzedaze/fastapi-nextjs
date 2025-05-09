@@ -1,3 +1,4 @@
+from app.api.api_v1.api import api_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -19,13 +20,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to FastAPI"}
 
 
 # Import and include all API routes
-from app.api.api_v1.api import api_router
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
 

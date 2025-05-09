@@ -1,3 +1,5 @@
+from app.core.config import settings
+from app.db.base import Base
 import asyncio
 from logging.config import fileConfig
 
@@ -17,7 +19,6 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-from app.db.base import Base
 target_metadata = Base.metadata
 
 # Import all models here to ensure they are registered with Base.metadata
@@ -26,7 +27,6 @@ target_metadata = Base.metadata
 # from app.models.item import Item
 
 # Import settings module
-from app.core.config import settings
 
 # Set sqlalchemy url in Alembic config
 config.set_main_option("sqlalchemy.url", str(settings.SQLALCHEMY_DATABASE_URI).replace(

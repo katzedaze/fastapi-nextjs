@@ -21,12 +21,17 @@ def upgrade() -> None:
     # 注文-商品の中間テーブルの作成
     op.create_table(
         'order_items',
-        sa.Column('order_id', postgresql.UUID(as_uuid=True), sa.ForeignKey('orders.id'), primary_key=True),
-        sa.Column('item_id', postgresql.UUID(as_uuid=True), sa.ForeignKey('items.id'), primary_key=True),
-        sa.Column('quantity', sa.Integer(), nullable=False, server_default=sa.text('1')),
+        sa.Column('order_id', postgresql.UUID(as_uuid=True),
+                  sa.ForeignKey('orders.id'), primary_key=True),
+        sa.Column('item_id', postgresql.UUID(as_uuid=True),
+                  sa.ForeignKey('items.id'), primary_key=True),
+        sa.Column('quantity', sa.Integer(), nullable=False,
+                  server_default=sa.text('1')),
         sa.Column('price_at_time', sa.Float(), nullable=False),
-        sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.func.now(), onupdate=sa.func.now(), nullable=False),
+        sa.Column('created_at', sa.DateTime(timezone=True),
+                  server_default=sa.func.now(), nullable=False),
+        sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.func.now(
+        ), onupdate=sa.func.now(), nullable=False),
     )
 
 

@@ -7,9 +7,9 @@ from app.models.item import Item
 
 class ItemSeeder(BaseSeeder):
     """Seeder for Item model."""
-    
+
     model = Item
-    
+
     async def run(self) -> None:
         """Create default items if they don't exist."""
         default_items = [
@@ -49,20 +49,20 @@ class ItemSeeder(BaseSeeder):
                 "image_url": "https://example.com/images/speaker.jpg",
             },
         ]
-        
+
         # すでに商品が存在する場合はシードしない
         result = await self.db.execute(select(Item))
         existing_items = result.scalars().all()
-        
+
         if not existing_items:
             await self.create_many(default_items)
-            
+
         # 特定の商品が存在するか確認してから追加する方法
         # for item_data in default_items:
         #     result = await self.db.execute(
         #         select(Item).where(Item.name == item_data["name"])
         #     )
         #     existing_item = result.scalars().first()
-        #     
+        #
         #     if not existing_item:
         #         await self.create(item_data)
