@@ -8,15 +8,6 @@ from app.models.order import Order, OrderStatus
 from app.models.order_item import OrderItem
 from app.models.user import User
 from app.models.item import Item
-# import enum
-
-
-# class OrderStatus(str, enum.Enum):
-#     PENDING = "pending"
-#     PROCESSING = "processing"
-#     SHIPPED = "shipped"
-#     DELIVERED = "delivered"
-#     CANCELLED = "cancelled"
 
 
 class OrderSeeder(BaseSeeder):
@@ -67,14 +58,7 @@ class OrderSeeder(BaseSeeder):
                     })
 
                 # 注文作成（OrderStatus enumを使用）
-                status_value = random.choice([
-                    OrderStatus.PENDING.value,  # "pending"
-                    OrderStatus.PROCESSING.value,  # "processing"
-                    OrderStatus.SHIPPED.value,  # "shipped"
-                    OrderStatus.DELIVERED.value,  # "delivered"
-                    OrderStatus.CANCELLED.value  # "cancelled"
-                ])
-                # status_value = random.choice(list(OrderStatus))
+                status_value = random.choice(list(OrderStatus))
 
                 order_data = {
                     "user_id": user.id,
