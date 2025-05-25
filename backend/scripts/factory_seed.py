@@ -32,7 +32,6 @@ def seed() -> None:
     logger.info("Starting factory-based database seeding...")
     try:
         asyncio.run(run_seeding())
-        logger.info("Database seeding completed successfully")
     except Exception as e:
         logger.error(f"Database seeding failed: {e}")
         raise typer.Exit(code=1)
