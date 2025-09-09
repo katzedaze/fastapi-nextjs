@@ -1,6 +1,7 @@
 # FastAPI Next.js Full-Stack Application
 
 test
+test2
 This is a full-stack web application template using FastAPI for the backend, Next.js for the frontend, and PostgreSQL with pgvector for the database. The project is containerized with Docker for both development and production environments.
 
 ## Project Structure
